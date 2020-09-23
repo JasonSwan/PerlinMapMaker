@@ -27,9 +27,12 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	int height;
 	
 	Button exitButton;
+	Button applyButton;
 	
-	double frequency;
-	int amplitude;
+	
+	int ampl;
+	
+	double freq = 10;
 
 	//List<Double> points1 = new ArrayList<Double>();
 	//List<Double> points2 = new ArrayList<Double>();
@@ -43,7 +46,9 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	
 	BufferedImage bf;
 	
+	boolean gettingPerlinValues;
 	boolean mapDrawn;
+	boolean startDrawing;
 	
 	public Content(int screenWidth, int screenHeight){
 		
@@ -64,13 +69,14 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		
 		//button in top right of screen that will always exit the application
 		exitButton = new Button(screenWidth-40, 0, 40, 20).setColor(Color.RED);
+		applyButton = new Button(screenWidth-240-20, 100, 40, 20).setColor(Color.RED);
 		
+		gettingPerlinValues = false;
 		mapDrawn = false;
+		startDrawing=false;
 		
 		
 		//amplitude = 7;
-		
-		double freq = 10;
 		
 		//1D LINE TEST
 		/*
@@ -93,6 +99,8 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		//System.out.println(height);
 		
 		
+		
+		/*
 		//PUT IN SEEDS BEFORE ADDING POINTS
 		Noise.seedInput(100);
 		
@@ -133,6 +141,7 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 				points2D5.add((1.0/16.0)*Noise.noise(freq*16*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
 			}
 		}
+		*/
 		
 		
 		/*
@@ -179,9 +188,11 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		
 		//draws exitbutton and adds decorative 'X' to to it
 		exitButton.draw(g2d);
+		applyButton.draw(g2d);
+		
 		g2d.setColor(Color.WHITE);
-		g2d.drawLine(width-25, 5, width-15, 15);
-		g2d.drawLine(width-25, 15, width-15, 5);
+		g2d.drawLine(width-25, 4, width-15, 14);
+		g2d.drawLine(width-25, 14, width-15, 4);
 		
 		g2d.setColor(Color.BLACK);
 		g2d.drawLine(width*3/4, 0, width*3/4, height);
@@ -223,75 +234,49 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 			g2d.drawLine(i, (500+(int) Math.round((points1.get(i)+points2.get(i)+points3.get(i))*(Math.pow(2, amplitude)))), i, (500+(int) Math.round((points1.get(i)+points2.get(i)+points3.get(i))*(Math.pow(2, amplitude)))) );
 		}
 		*/
-		
-		if(!mapDrawn) {
-
-			/*
-			int y = 0;
-			int x = 0;
-			for(int i = 0; i<points2D.size();i++) {
-				x=i;
-				while(x>1439) {
-					x=x-1439;
-				}
-				//x = i-(width*3/4*(y));
-				if(points2D.get(i)<0) {
-					bf.setRGB(x, y, Color.BLUE.getRGB());
-				}
-				else {
-					bf.setRGB(x, y, Color.GREEN.getRGB());
+		if(startDrawing) {
+			if(!mapDrawn) {
+	
+				int i=0;
+				for(int y = 0; y<height; y++) {
+					for(int x = 0; x<width*3/4; x++) {
+						double sum = points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)+points2D5.get(i);
+						if(sum <-0.05) {
+							bf.setRGB(x, y, Color.BLUE.getRGB());
+							i++;
+							continue;
+						}
+						else if(-0.05<=sum && sum<0.00) {
+							bf.setRGB(x, y, Color.CYAN.getRGB());
+							i++;
+							continue;
+						}
+						else if(0.00<=sum && sum<0.05) {
+							bf.setRGB(x, y, Color.YELLOW.getRGB());
+							i++;
+							continue;
+						}
+						else if(0.05<=sum && sum<0.50) {
+							bf.setRGB(x, y, Color.GREEN.getRGB());
+							i++;
+							continue;
+						}
+						else if(0.50<=sum && sum<0.75) {
+							bf.setRGB(x, y, Color.DARK_GRAY.getRGB());
+							i++;
+							continue;
+						}
+						else {
+							bf.setRGB(x, y, Color.WHITE.getRGB());
+							i++;
+						}
+					}
 				}
 				
 				
-
-				//System.out.println(i);
-				//System.out.print(x); System.out.print(", "); System.out.println(y);
 				
-				if(i%(width*3/4+1)==0 && i!=0) {
-					y+=1;
-				}
+				mapDrawn=true;
 			}
-			*/
-
-			int i=0;
-			for(int y = 0; y<height; y++) {
-				for(int x = 0; x<width*3/4; x++) {
-					double sum = points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)+points2D5.get(i);
-					if(sum <-0.05) {
-						bf.setRGB(x, y, Color.BLUE.getRGB());
-						i++;
-						continue;
-					}
-					else if(-0.05<=sum && sum<0.00) {
-						bf.setRGB(x, y, Color.CYAN.getRGB());
-						i++;
-						continue;
-					}
-					else if(0.00<=sum && sum<0.05) {
-						bf.setRGB(x, y, Color.YELLOW.getRGB());
-						i++;
-						continue;
-					}
-					else if(0.05<=sum && sum<0.50) {
-						bf.setRGB(x, y, Color.GREEN.getRGB());
-						i++;
-						continue;
-					}
-					else if(0.50<=sum && sum<0.75) {
-						bf.setRGB(x, y, Color.DARK_GRAY.getRGB());
-						i++;
-						continue;
-					}
-					else {
-						bf.setRGB(x, y, Color.WHITE.getRGB());
-						i++;
-					}
-				}
-			}
-			
-			
-			
-			mapDrawn=true;
 		}
 		
 		
@@ -304,12 +289,62 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		if(gettingPerlinValues) {
+			Noise.seedInput((int) Math.round(Math.random()*100));
+			
+			//2D TEST
+			for(double y =0; y<height; y+=1.0) {
+				for(double x=0; x<width*3/4; x++) {
+					//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+					//Noise.seedInput(1000);
+					points2D.add(Noise.noise(freq*x/(width*3/4)-0.5, freq*y/(height)-0.5));
+					
+				}
+			}
+
+			for(double y =0; y<height; y+=1.0) {
+				for(double x=0; x<width*3/4; x++) {
+					//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+					points2D2.add((1.0/2.0)*Noise.noise(freq*2*x/(width*3/4)-0.5, freq*2*y/(height)-0.5));
+				}
+			}
+
+			for(double y =0; y<height; y+=1.0) {
+				for(double x=0; x<width*3/4; x++) {
+					//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+					points2D3.add((1.0/4.0)*Noise.noise(freq*4*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+				}
+			}
+
+			for(double y =0; y<height; y+=1.0) {
+				for(double x=0; x<width*3/4; x++) {
+					//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+					points2D4.add((1.0/8.0)*Noise.noise(freq*8*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+				}
+			}
+
+			for(double y =0; y<height; y+=1.0) {
+				for(double x=0; x<width*3/4; x++) {
+					//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+					points2D5.add((1.0/16.0)*Noise.noise(freq*16*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+				}
+			}
+			
+			gettingPerlinValues=false;
+			mapDrawn=false;
+			startDrawing=true;
+		}
+		
+		
 	}
 	
 	
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
+		if(e.getKeyCode()==KeyEvent.VK_A) {
+			gettingPerlinValues=true;
+		}
 		// TODO Auto-generated method stub
 		
 	}
@@ -344,12 +379,14 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 		if(exitButton.mouseOnButton(e.getPoint())) {
 			exitButton.motion=true;
 			exitButton.pressed=true;
 		}
-		
+		if(applyButton.mouseOnButton(e.getPoint())) {
+			applyButton.motion=true;
+			applyButton.pressed=true;
+		}
 	}
 
 
@@ -365,6 +402,22 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		else {
 			exitButton.motion=false;
 			exitButton.pressed=false;
+		}
+		if(applyButton.mouseOnButton(e.getPoint())) {
+			if(applyButton.pressed) {
+				applyButton.motion=false;
+				applyButton.pressed=false;
+				gettingPerlinValues=true;
+				points2D.clear();
+				points2D2.clear();
+				points2D3.clear();
+				points2D4.clear();
+				points2D5.clear();
+			}
+		}
+		else {
+			applyButton.motion=false;
+			applyButton.pressed=false;
 		}
 	}
 
@@ -398,6 +451,14 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 			exitButton.motion=false;
 		}
 		
+		if(applyButton.mouseOnButton(e.getPoint())) {
+			if(applyButton.pressed) {
+				applyButton.motion=true;
+			}
+		}
+		else {
+			applyButton.motion=false;
+		}
 		
 	}
 
