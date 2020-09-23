@@ -12,7 +12,7 @@ package Perlin;
  @see ImprovedNoise
 */
 
-public final class Noise {
+public final class Noise  {
 
 /** 
 Initialization seed used to start the random number generator.
@@ -45,13 +45,20 @@ private static double s_curve(double t) {
    return t * t * (3 - t - t);
 }
 
+
+public static void seedInput (int rngSeed) {
+	Noise.seed=rngSeed;
+	init();
+}
+
 /** 
 Computes noise function for one dimension at x.
 @param x 1 dimensional parameter
 @return the noise value at x 
 */
 public static double noise(double x) {
-
+   
+   
    int bx0, bx1;
    double rx0, rx1, sx, t, u, v;
    t = x + N;
@@ -74,7 +81,7 @@ Computes noise function for two dimensions at the point (x,y).
 @return the value of noise at the point (x,y)
 */
 public static double noise(double x, double y) {
-
+   
    int bx0, bx1, by0, by1, b00, b10, b01, b11;
    double rx0, rx1, ry0, ry1, sx, sy, a, b, t, u, v, q[];
    int i, j;
@@ -125,7 +132,9 @@ Computes noise function for three dimensions at the point (x,y,z).
 @return the noise value at the point (x, y, z)
 */
 static public double noise(double x, double y, double z) {
-
+   
+   
+   
    int bx, by, bz, b0, b1, b00, b10, b01, b11;
    double rx0, rx1, ry0, ry1, rz, sx, sy, sz, a, b, c, d, u, v, q[];
 

@@ -89,17 +89,22 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		}
 		*/
 		
-		System.out.println(width*3/4);
-		System.out.println(height);
-		//2D TEST
+		//System.out.println(width*3/4);
+		//System.out.println(height);
 		
+		
+		//PUT IN SEEDS BEFORE ADDING POINTS
+		Noise.seedInput(100);
+		
+		//2D TEST
 		for(double y =0; y<height; y+=1.0) {
 			for(double x=0; x<width*3/4; x++) {
 				//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+				//Noise.seedInput(1000);
 				points2D.add(Noise.noise(freq*x/(width*3/4)-0.5, freq*y/(height)-0.5));
+				
 			}
 		}
-		
 
 		for(double y =0; y<height; y+=1.0) {
 			for(double x=0; x<width*3/4; x++) {
@@ -107,7 +112,6 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 				points2D2.add((1.0/2.0)*Noise.noise(freq*2*x/(width*3/4)-0.5, freq*2*y/(height)-0.5));
 			}
 		}
-		
 
 		for(double y =0; y<height; y+=1.0) {
 			for(double x=0; x<width*3/4; x++) {
