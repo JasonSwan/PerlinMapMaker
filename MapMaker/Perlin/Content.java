@@ -31,17 +31,15 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	double frequency;
 	int amplitude;
 
-	List<Double> points1 = new ArrayList<Double>();
-	
-	List<Double> points2 = new ArrayList<Double>();
-	
-	List<Double> points3 = new ArrayList<Double>();
+	//List<Double> points1 = new ArrayList<Double>();
+	//List<Double> points2 = new ArrayList<Double>();
+	//List<Double> points3 = new ArrayList<Double>();
 	
 	List<Double> points2D = new ArrayList<Double>();
-	
 	List<Double> points2D2 = new ArrayList<Double>();
-	
 	List<Double> points2D3 = new ArrayList<Double>();
+	List<Double> points2D4 = new ArrayList<Double>();
+	List<Double> points2D5 = new ArrayList<Double>();
 	
 	BufferedImage bf;
 	
@@ -117,8 +115,23 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 				points2D3.add((1.0/4.0)*Noise.noise(freq*4*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
 			}
 		}
+
+		for(double y =0; y<height; y+=1.0) {
+			for(double x=0; x<width*3/4; x++) {
+				//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+				points2D4.add((1.0/8.0)*Noise.noise(freq*8*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+			}
+		}
+
+		for(double y =0; y<height; y+=1.0) {
+			for(double x=0; x<width*3/4; x++) {
+				//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+				points2D5.add((1.0/16.0)*Noise.noise(freq*16*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+			}
+		}
 		
 		
+		/*
 		double highest = 0;
 		double highest1 = 0;
 		double highest2 = 0;
@@ -146,6 +159,7 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		System.out.println(Math.abs(highest)+Math.abs(highest1)+Math.abs(highest2));
 		
 		System.out.println(points2D.size());
+		*/
 	}
 	
 	@Override
@@ -239,23 +253,23 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 			int i=0;
 			for(int y = 0; y<height; y++) {
 				for(int x = 0; x<width*3/4; x++) {
-					double sum = points2D.get(i)+points2D2.get(i)+points2D3.get(i);
-					if(sum <-0.25) {
+					double sum = points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)+points2D5.get(i);
+					if(sum <-0.05) {
 						bf.setRGB(x, y, Color.BLUE.getRGB());
 						i++;
 						continue;
 					}
-					else if(-0.50<=sum && sum<-0.01) {
+					else if(-0.05<=sum && sum<0.00) {
 						bf.setRGB(x, y, Color.CYAN.getRGB());
 						i++;
 						continue;
 					}
-					else if(-0.01<=sum && sum<0.10) {
+					else if(0.00<=sum && sum<0.05) {
 						bf.setRGB(x, y, Color.YELLOW.getRGB());
 						i++;
 						continue;
 					}
-					else if(0.10<=sum && sum<0.50) {
+					else if(0.05<=sum && sum<0.50) {
 						bf.setRGB(x, y, Color.GREEN.getRGB());
 						i++;
 						continue;
