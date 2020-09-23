@@ -248,7 +248,7 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 				}
 			}
 			*/
-			
+
 			int i=0;
 			for(int y = 0; y<height; y++) {
 				for(int x = 0; x<width*3/4; x++) {
