@@ -188,7 +188,6 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		
 		
 		
-		
 		/*
 		//THIS IS FOR PIXEL DRAWING
 		for(int i =0; i<20; i++) {
