@@ -9,9 +9,15 @@ public class Button {
 	int xCor, yCor;
 	int width, height;
 	
+	int r = 255;
+	int g = 0;
+	int b = 0;
+	
 	
 	boolean motion;
 	boolean pressed;
+	
+	boolean disable;
 	
 	Color buttonColor;
 	
@@ -22,18 +28,31 @@ public class Button {
 		height=Height;
 		buttonColor = Color.GRAY;
 		
+		
+		
+		//if pressed, turn true for user visual
 		motion = false;
 		
+		//button has been clicked
 		pressed = false;
+		
+		disable = false;
 	}
 	
 	public void draw(Graphics2D g2d) {
 		//Graphics2D g2d = (Graphics2D) g;
-		if(motion) {
-			g2d.setColor(buttonColor.darker());
+		if(disable) {
+			if(r>g && r>b) {
+				g2d.setColor(new Color(r, g +125, b+125));
+			}
 		}
 		else {
-			g2d.setColor(buttonColor);
+			if(motion) {
+				g2d.setColor(buttonColor.darker());
+			}
+			else {
+				g2d.setColor(buttonColor);
+			}
 		}
 		g2d.fillRect(xCor, yCor, width, height);;
 		
@@ -46,8 +65,8 @@ public class Button {
 	}
 	
 	
-	public Button setColor(Color color) {
-		this.buttonColor=color;
+	public Button setColor(int r, int g, int b) {
+		this.buttonColor=new Color( r , g , b);
 		return this;
 	}
 	

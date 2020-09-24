@@ -33,7 +33,7 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	int ampl;
 	double freq = 5;
 	
-	int currentSeed=100;
+	int currentSeed;
 
 	//List<Double> points1 = new ArrayList<Double>();
 	//List<Double> points2 = new ArrayList<Double>();
@@ -69,8 +69,8 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		height = screenHeight;
 		
 		//button in top right of screen that will always exit the application
-		exitButton = new Button(screenWidth-40, 0, 40, 20).setColor(Color.RED);
-		applyButton = new Button(screenWidth-240-20, 100, 40, 20).setColor(Color.RED);
+		exitButton = new Button(screenWidth-40, 0, 40, 20).setColor(255,0,0);
+		applyButton = new Button(screenWidth-240-20, 100, 40, 20).setColor(255,0,0);
 		
 		gettingPerlinValues = true;
 		mapDrawn = false;
@@ -243,22 +243,22 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 				for(int y = 0; y<height; y++) {
 					for(int x = 0; x<width*3/4; x++) {
 						double sum = points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)+points2D5.get(i);
-						if(sum <-0.02) {
+						if(sum <0.05) {
 							bf.setRGB(x, y, Color.BLUE.getRGB());
 							i++;
 							continue;
 						}
-						else if(-0.02<=sum && sum<0.00) {
+						else if(0.05<=sum && sum<0.06) {
 							bf.setRGB(x, y, Color.CYAN.getRGB());
 							i++;
 							continue;
 						}
-						else if(0.00<=sum && sum<0.01) {
+						else if(0.06<=sum && sum<0.07) {
 							bf.setRGB(x, y, Color.YELLOW.getRGB());
 							i++;
 							continue;
 						}
-						else if(0.01<=sum && sum<0.50) {
+						else if(0.07<=sum && sum<0.50) {
 							bf.setRGB(x, y, Color.GREEN.getRGB());
 							i++;
 							continue;
@@ -275,6 +275,9 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 					}
 				}
 				mapDrawn=true;
+				
+				//allow users to click button again
+				applyButton.disable=false;
 			}
 		}
 		
@@ -383,9 +386,11 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 			exitButton.motion=true;
 			exitButton.pressed=true;
 		}
-		if(applyButton.mouseOnButton(e.getPoint())) {
-			applyButton.motion=true;
-			applyButton.pressed=true;
+		if(!applyButton.disable) {
+			if(applyButton.mouseOnButton(e.getPoint())) {
+				applyButton.motion=true;
+				applyButton.pressed=true;
+			}
 		}
 	}
 
@@ -403,21 +408,26 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 			exitButton.motion=false;
 			exitButton.pressed=false;
 		}
-		if(applyButton.mouseOnButton(e.getPoint())) {
-			if(applyButton.pressed) {
+		
+		if(!applyButton.disable) {
+
+			if(applyButton.mouseOnButton(e.getPoint())) {
+				if(applyButton.pressed) {
+					applyButton.motion=false;
+					applyButton.pressed=false;
+					gettingPerlinValues=true;
+					points2D.clear();
+					points2D2.clear();
+					points2D3.clear();
+					points2D4.clear();
+					points2D5.clear();
+					applyButton.disable=true;
+				}
+			}
+			else {
 				applyButton.motion=false;
 				applyButton.pressed=false;
-				gettingPerlinValues=true;
-				points2D.clear();
-				points2D2.clear();
-				points2D3.clear();
-				points2D4.clear();
-				points2D5.clear();
 			}
-		}
-		else {
-			applyButton.motion=false;
-			applyButton.pressed=false;
 		}
 	}
 
