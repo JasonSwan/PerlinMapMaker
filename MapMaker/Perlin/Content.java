@@ -31,8 +31,9 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	
 	
 	int ampl;
+	double freq = 5;
 	
-	double freq = 10;
+	int currentSeed=100;
 
 	//List<Double> points1 = new ArrayList<Double>();
 	//List<Double> points2 = new ArrayList<Double>();
@@ -71,12 +72,10 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		exitButton = new Button(screenWidth-40, 0, 40, 20).setColor(Color.RED);
 		applyButton = new Button(screenWidth-240-20, 100, 40, 20).setColor(Color.RED);
 		
-		gettingPerlinValues = false;
+		gettingPerlinValues = true;
 		mapDrawn = false;
 		startDrawing=false;
 		
-		
-		//amplitude = 7;
 		
 		//1D LINE TEST
 		/*
@@ -186,10 +185,13 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		g2d.setColor(Color.GRAY);
 		g2d.fillRect(0, 0, width, height);
 		
-		//draws exitbutton and adds decorative 'X' to to it
-		exitButton.draw(g2d);
+		//APPLY BUTTON AND VISUAL CURRENT SEED
 		applyButton.draw(g2d);
+		g2d.setColor(Color.WHITE);
+		g2d.drawString("Current Seed:" + String.valueOf(currentSeed), applyButton.xCor+applyButton.width+5, Math.round(applyButton.yCor+(applyButton.height-5)));
 		
+		//EXIT BUTTON AND DECORATIVE 'X'
+		exitButton.draw(g2d);
 		g2d.setColor(Color.WHITE);
 		g2d.drawLine(width-25, 4, width-15, 14);
 		g2d.drawLine(width-25, 14, width-15, 4);
@@ -241,27 +243,27 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 				for(int y = 0; y<height; y++) {
 					for(int x = 0; x<width*3/4; x++) {
 						double sum = points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)+points2D5.get(i);
-						if(sum <-0.05) {
+						if(sum <-0.02) {
 							bf.setRGB(x, y, Color.BLUE.getRGB());
 							i++;
 							continue;
 						}
-						else if(-0.05<=sum && sum<0.00) {
+						else if(-0.02<=sum && sum<0.00) {
 							bf.setRGB(x, y, Color.CYAN.getRGB());
 							i++;
 							continue;
 						}
-						else if(0.00<=sum && sum<0.05) {
+						else if(0.00<=sum && sum<0.01) {
 							bf.setRGB(x, y, Color.YELLOW.getRGB());
 							i++;
 							continue;
 						}
-						else if(0.05<=sum && sum<0.50) {
+						else if(0.01<=sum && sum<0.50) {
 							bf.setRGB(x, y, Color.GREEN.getRGB());
 							i++;
 							continue;
 						}
-						else if(0.50<=sum && sum<0.75) {
+						else if(0.50<=sum && sum<0.65) {
 							bf.setRGB(x, y, Color.DARK_GRAY.getRGB());
 							i++;
 							continue;
@@ -272,9 +274,6 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 						}
 					}
 				}
-				
-				
-				
 				mapDrawn=true;
 			}
 		}
@@ -290,7 +289,8 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	public void actionPerformed(ActionEvent e) {
 		
 		if(gettingPerlinValues) {
-			Noise.seedInput((int) Math.round(Math.random()*100));
+			currentSeed = (int) Math.round(Math.random()*1000000);
+			Noise.seedInput(currentSeed);
 			
 			//2D TEST
 			for(double y =0; y<height; y+=1.0) {
