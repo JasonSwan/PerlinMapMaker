@@ -27,13 +27,14 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	int height;
 	
 	Button exitButton;
-	Button applyButton;
+	Button seedButton;
+	InputContainer seedContainer;
 	
 	
 	int ampl;
 	double freq = 5;
 	
-	int currentSeed;
+	int currentSeed = 100;
 
 	//List<Double> points1 = new ArrayList<Double>();
 	//List<Double> points2 = new ArrayList<Double>();
@@ -70,77 +71,14 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		
 		//button in top right of screen that will always exit the application
 		exitButton = new Button(screenWidth-40, 0, 40, 20).setColor(255,0,0);
-		applyButton = new Button(screenWidth-240-20, 100, 40, 20).setColor(255,0,0);
+		//button that randomizes the seed and then loads the new map
+		seedButton = new Button(screenWidth-(screenWidth/8)-20, 100, 40, 20).setColor(255,0,0);
+		//inputContainer that allows user to input new seed and then loads the new map
+		seedContainer = new InputContainer(screenWidth-(screenWidth/8)-145, 100,120,20);
 		
 		gettingPerlinValues = true;
 		mapDrawn = false;
 		startDrawing=false;
-		
-		
-		//1D LINE TEST
-		/*
-		for(double i =0; i<=screenWidth*3/4; i+=1.0) {
-			//System.out.println(Noise.noise(*i));
-			points1.add(Noise.noise(freq*i/(screenWidth*3/4)-0.5));
-		}
-		for(double i =0; i<=screenWidth*3/4; i+=1.0) {
-			//System.out.println(Noise.noise(*i));
-			points2.add((1.0/2.0)*Noise.noise(freq*2*i/(screenWidth*3/4)-0.5));
-		}
-
-		for(double i =0; i<=screenWidth*3/4; i+=1.0) {
-			//System.out.println(Noise.noise(*i));
-			points3.add((1.0/4.0)*Noise.noise(freq*4*i/(screenWidth*3/4)-0.5));
-		}
-		*/
-		
-		//System.out.println(width*3/4);
-		//System.out.println(height);
-		
-		
-		
-		/*
-		//PUT IN SEEDS BEFORE ADDING POINTS
-		Noise.seedInput(100);
-		
-		//2D TEST
-		for(double y =0; y<height; y+=1.0) {
-			for(double x=0; x<width*3/4; x++) {
-				//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-				//Noise.seedInput(1000);
-				points2D.add(Noise.noise(freq*x/(width*3/4)-0.5, freq*y/(height)-0.5));
-				
-			}
-		}
-
-		for(double y =0; y<height; y+=1.0) {
-			for(double x=0; x<width*3/4; x++) {
-				//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-				points2D2.add((1.0/2.0)*Noise.noise(freq*2*x/(width*3/4)-0.5, freq*2*y/(height)-0.5));
-			}
-		}
-
-		for(double y =0; y<height; y+=1.0) {
-			for(double x=0; x<width*3/4; x++) {
-				//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-				points2D3.add((1.0/4.0)*Noise.noise(freq*4*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-			}
-		}
-
-		for(double y =0; y<height; y+=1.0) {
-			for(double x=0; x<width*3/4; x++) {
-				//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-				points2D4.add((1.0/8.0)*Noise.noise(freq*8*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-			}
-		}
-
-		for(double y =0; y<height; y+=1.0) {
-			for(double x=0; x<width*3/4; x++) {
-				//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-				points2D5.add((1.0/16.0)*Noise.noise(freq*16*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-			}
-		}
-		*/
 		
 		
 		/*
@@ -186,15 +124,20 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		g2d.fillRect(0, 0, width, height);
 		
 		//APPLY BUTTON AND VISUAL CURRENT SEED
-		applyButton.draw(g2d);
+		seedButton.draw(g2d);
 		g2d.setColor(Color.WHITE);
-		g2d.drawString("Current Seed:" + String.valueOf(currentSeed), applyButton.xCor+applyButton.width+5, Math.round(applyButton.yCor+(applyButton.height-5)));
+		g2d.drawString("Current Seed:" + String.valueOf(currentSeed), seedButton.xCor+seedButton.width+5, Math.round(seedButton.yCor+(seedButton.height-5)));
+		
+		//SEED CONTAINER
+		seedContainer.draw(g2d);
+		
 		
 		//EXIT BUTTON AND DECORATIVE 'X'
 		exitButton.draw(g2d);
 		g2d.setColor(Color.WHITE);
 		g2d.drawLine(width-25, 4, width-15, 14);
 		g2d.drawLine(width-25, 14, width-15, 4);
+		
 		
 		g2d.setColor(Color.BLACK);
 		g2d.drawLine(width*3/4, 0, width*3/4, height);
@@ -203,39 +146,6 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		g2d.drawImage(bf, 0, 0, width*3/4, height, this);
 		
 		
-		
-		
-		/*
-		//THIS IS FOR PIXEL DRAWING
-		for(int i =0; i<20; i++) {
-			bf.setRGB(i, 50, Color.RED.getRGB());
-		}
-		bf.setRGB(10, 10, Color.RED.getRGB());
-		g2d.drawImage(bf, 0, 0, width*3/4, height, this);
-		*/
-		
-		/*
-		g2d.setColor(Color.YELLOW);
-		for(int i = 0; i<points.size();i++) {
-			g2d.drawLine(i, (500+(int) Math.round(points.get(i)*(Math.pow(2, amplitude)))), i, (500+(int) Math.round(points.get(i)*(Math.pow(2, amplitude)))) );
-		}
-		
-		g2d.setColor(Color.BLUE);
-		for(int i = 0; i<points2.size();i++) {
-			g2d.drawLine(i, (500+(int) Math.round(points2.get(i)*(Math.pow(2, amplitude)))), i, (500+(int) Math.round(points2.get(i)*(Math.pow(2, amplitude)))) );
-		}
-		
-		g2d.setColor(Color.GREEN);
-		for(int i = 0; i<points3.size();i++) {
-			g2d.drawLine(i, (500+(int) Math.round(points3.get(i)*(Math.pow(2, amplitude)))), i, (500+(int) Math.round(points3.get(i)*(Math.pow(2, amplitude)))) );
-		}
-		*/
-		/*
-		g2d.setColor(Color.YELLOW);
-		for(int i = 0; i<points3.size();i++) {
-			g2d.drawLine(i, (500+(int) Math.round((points1.get(i)+points2.get(i)+points3.get(i))*(Math.pow(2, amplitude)))), i, (500+(int) Math.round((points1.get(i)+points2.get(i)+points3.get(i))*(Math.pow(2, amplitude)))) );
-		}
-		*/
 		if(startDrawing) {
 			if(!mapDrawn) {
 	
@@ -277,7 +187,8 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 				mapDrawn=true;
 				
 				//allow users to click button again
-				applyButton.disable=false;
+				seedButton.disable=false;
+				seedContainer.disable=false;
 			}
 		}
 		
@@ -292,7 +203,7 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	public void actionPerformed(ActionEvent e) {
 		
 		if(gettingPerlinValues) {
-			currentSeed = (int) Math.round(Math.random()*1000000);
+			//currentSeed = (int) Math.round(Math.random()*1000000);
 			Noise.seedInput(currentSeed);
 			
 			//2D TEST
@@ -337,25 +248,47 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 			mapDrawn=false;
 			startDrawing=true;
 		}
-		
-		
 	}
-	
 	
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
-		if(e.getKeyCode()==KeyEvent.VK_A) {
-			gettingPerlinValues=true;
+		
+		
+		if(seedContainer.pressed && seedContainer.currentString.length()<10) {
+				if(Character.isDigit(e.getKeyChar())) {
+					seedContainer.currentString=seedContainer.currentString+=e.getKeyChar();
+				}
 		}
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		if(seedContainer.pressed) {
+			if(seedContainer.currentString.length()>0 && e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+				seedContainer.currentString = seedContainer.currentString.substring(0, seedContainer.currentString.length()-1);
+			}
+			else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+				if(!seedContainer.disable) {
+					currentSeed = Integer.valueOf(seedContainer.currentString);
+					gettingPerlinValues=true;
+					points2D.clear();
+					points2D2.clear();
+					points2D3.clear();
+					points2D4.clear();
+					points2D5.clear();
+					seedButton.disable=true;
+					seedContainer.disable=true;
+				}
+			}
+			//USELESS FOR SEED GENERATION BUT KEEP FOR FUTURE BUTTONS
+			/*
+			else if (seedContainer.currentString.length()<9 && e.getKeyCode() == KeyEvent.VK_PERIOD && !seedContainer.currentString.contains(".")) {
+				seedContainer.currentString=seedContainer.currentString+=e.getKeyChar();
+			}
+			*/
+		}
 		
 	}
 
@@ -375,6 +308,13 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		//	System.exit(0);
 		//}
 		
+		if(seedContainer.mouseOnButton(e.getPoint())) {
+			seedContainer.pressed = true;
+		}
+		else {
+			seedContainer.pressed=false;
+		}
+		
 		
 	}
 
@@ -386,10 +326,10 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 			exitButton.motion=true;
 			exitButton.pressed=true;
 		}
-		if(!applyButton.disable) {
-			if(applyButton.mouseOnButton(e.getPoint())) {
-				applyButton.motion=true;
-				applyButton.pressed=true;
+		if(!seedButton.disable) {
+			if(seedButton.mouseOnButton(e.getPoint())) {
+				seedButton.motion=true;
+				seedButton.pressed=true;
 			}
 		}
 	}
@@ -409,24 +349,25 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 			exitButton.pressed=false;
 		}
 		
-		if(!applyButton.disable) {
+		if(!seedButton.disable) {
 
-			if(applyButton.mouseOnButton(e.getPoint())) {
-				if(applyButton.pressed) {
-					applyButton.motion=false;
-					applyButton.pressed=false;
+			if(seedButton.mouseOnButton(e.getPoint())) {
+				if(seedButton.pressed) {
+					currentSeed = (int) Math.round(Math.random()*1000000);
+					seedButton.motion=false;
+					seedButton.pressed=false;
 					gettingPerlinValues=true;
 					points2D.clear();
 					points2D2.clear();
 					points2D3.clear();
 					points2D4.clear();
 					points2D5.clear();
-					applyButton.disable=true;
+					seedButton.disable=true;
 				}
 			}
 			else {
-				applyButton.motion=false;
-				applyButton.pressed=false;
+				seedButton.motion=false;
+				seedButton.pressed=false;
 			}
 		}
 	}
@@ -461,13 +402,13 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 			exitButton.motion=false;
 		}
 		
-		if(applyButton.mouseOnButton(e.getPoint())) {
-			if(applyButton.pressed) {
-				applyButton.motion=true;
+		if(seedButton.mouseOnButton(e.getPoint())) {
+			if(seedButton.pressed) {
+				seedButton.motion=true;
 			}
 		}
 		else {
-			applyButton.motion=false;
+			seedButton.motion=false;
 		}
 		
 	}
