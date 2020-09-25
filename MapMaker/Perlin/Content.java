@@ -77,6 +77,12 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	List<Double> points2D3 = new ArrayList<Double>();
 	List<Double> points2D4 = new ArrayList<Double>();
 	List<Double> points2D5 = new ArrayList<Double>();
+	List<Double> points2D6 = new ArrayList<Double>();
+	List<Double> points2D7 = new ArrayList<Double>();
+	List<Double> points2D8 = new ArrayList<Double>();
+	List<Double> points2D9 = new ArrayList<Double>();
+	List<Double> points2D10 = new ArrayList<Double>();
+	
 	
 	BufferedImage bf;
 	
@@ -184,31 +190,48 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 				int i=0;
 				for(int y = 0; y<height; y++) {
 					for(int x = 0; x<width*3/4; x++) {
-						double sum = points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)+points2D5.get(i);
-						
+						double sum =points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)
+									+points2D5.get(i)+points2D6.get(i)+points2D7.get(i)+points2D8.get(i)
+									+points2D9.get(i)+points2D10.get(i);
 						
 						//WATER COLOR DECIDER
 						if(deepWaterBottom <=sum && sum <deepWaterTop) {
 							
 							double difference = deepWaterHigh-deepWaterLow;
 							double diffToLow = deepWaterHigh-sum;
-							int deduct =  (int) Math.round(diffToLow/difference*100);
+							int deduct =  (int) Math.round(diffToLow/difference*200);
+							/*
+							if(deduct>40) { bf.setRGB(x, y, (new Color(0,100-((int)(deduct/2)),200-( (int) (0.50*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>25) { bf.setRGB(x, y, (new Color(0,100-((int)(deduct/2)),200-( (int) (0.40*(deduct)))).hashCode())); i++; continue; }
+							else { bf.setRGB(x, y, (new Color(0,100-((int)(deduct/2)),200-( (int) (0.30*(deduct)))).hashCode())); i++; continue; }
+							*/
 							
-							if(deduct>85) { bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),180-( (int) (1.75*(deduct)))).hashCode())); i++; continue; }
-							if(deduct>70) { bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),180-( (int) (1.50*(deduct)))).hashCode())); i++; continue; }
-							if(deduct>55) { bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),180-( (int) (1.25*(deduct)))).hashCode())); i++; continue; }
-							if(deduct>40) { bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),180-( (int) (1.00*(deduct)))).hashCode())); i++; continue; }
-							if(deduct>25) { bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),180-( (int) (0.75*(deduct)))).hashCode())); i++; continue; }
-							else { bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),180-( (int) (0.50*(deduct)))).hashCode())); i++; continue; }
 							
-							//bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),205-2*(deduct)).hashCode()));
-							//i++;
-							//continue;
+							bf.setRGB(x, y, (new Color(0,100-(Math.round(deduct/2)),200-((int)  (0.85*(deduct)) )).hashCode()));
+							i++;
+							continue;
+							
 						}
 						else if(lightWaterBottom<=sum && sum<lightWaterTop) {
+							
+
+							double difference = lightWaterHigh-lightWaterLow;
+							double diffToLow = lightWaterHigh-sum;
+							int deduct =  (int) Math.round(diffToLow/difference*100);
+							
+							
+							
+							if(deduct>85) { bf.setRGB(x, y, (new Color(0,100-((int)(deduct/2)),200-( (int) (0.85*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>70) { bf.setRGB(x, y, (new Color(0,100-((int)(deduct/2)),200-( (int) (.70*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>55) { bf.setRGB(x, y, (new Color(0,100-((int)(deduct/2)),200-( (int) (.55*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>40) { bf.setRGB(x, y, (new Color(0,100-((int)(deduct/2)),200-( (int) (0.40*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>25) { bf.setRGB(x, y, (new Color(0,100-((int)(deduct/2)),200-( (int) (0.25*(deduct)))).hashCode())); i++; continue; }
+							else { bf.setRGB(x, y, (new Color(0,50-((int)(deduct/2)),200-( (int) (0.10*(deduct)))).hashCode())); i++; continue; }
+							/*
 							bf.setRGB(x, y, Color.CYAN.getRGB());
 							i++;
 							continue;
+							*/
 						}
 						else if(sandBottom<=sum && sum<sandTop) {
 							bf.setRGB(x, y, Color.YELLOW.getRGB());
@@ -280,35 +303,16 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 					//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
 					//Noise.seedInput(1000);
 					points2D.add(Noise.noise(freq*x/(width*3/4)-0.14, freq*y/(height)-0.14));
+					points2D2.add((1.0/1.0)*Noise.noise(freq*2*x/(width*3/4)-0.14, freq*2*y/(height)-0.14));
+					points2D3.add((1.0/2.0)*Noise.noise(freq*4*x/(width*3/4)-0.14, freq*4*y/(height)-0.14));
+					points2D4.add((1.0/4.0)*Noise.noise(freq*8*x/(width*3/4)-0.14, freq*8*y/(height)-0.14));
+					points2D5.add((1.0/8.0)*Noise.noise(freq*16*x/(width*3/4)-0.14, freq*16*y/(height)-0.14));
+					points2D6.add((1.0/16.0)*Noise.noise(freq*32*x/(width*3/4)-0.14, freq*32*y/(height)-0.14));
+					points2D7.add((1.0/32.0)*Noise.noise(freq*64*x/(width*3/4)-0.14, freq*64*y/(height)-0.14));
+					points2D8.add((1.0/64.0)*Noise.noise(freq*128*x/(width*3/4)-0.14, freq*128*y/(height)-0.14));
+					points2D9.add((1.0/128.0)*Noise.noise(freq*256*x/(width*3/4)-0.14, freq*256*y/(height)-0.14));
+					points2D10.add((1.0/256.0)*Noise.noise(freq*512*x/(width*3/4)-0.14, freq*512*y/(height)-0.14));
 					
-				}
-			}
-
-			for(double y =0; y<height; y+=1.0) {
-				for(double x=0; x<width*3/4; x++) {
-					//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-					points2D2.add((1.0/2.0)*Noise.noise(freq*2*x/(width*3/4)-0.14, freq*2*y/(height)-0.14));
-				}
-			}
-
-			for(double y =0; y<height; y+=1.0) {
-				for(double x=0; x<width*3/4; x++) {
-					//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-					points2D3.add((1.0/4.0)*Noise.noise(freq*4*x/(width*3/4)-0.14, freq*4*y/(height)-0.14));
-				}
-			}
-
-			for(double y =0; y<height; y+=1.0) {
-				for(double x=0; x<width*3/4; x++) {
-					//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-					points2D4.add((1.0/8.0)*Noise.noise(freq*8*x/(width*3/4)-0.14, freq*8*y/(height)-0.14));
-				}
-			}
-
-			for(double y =0; y<height; y+=1.0) {
-				for(double x=0; x<width*3/4; x++) {
-					//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-					points2D5.add((1.0/16.0)*Noise.noise(freq*16*x/(width*3/4)-0.14, freq*16*y/(height)-0.14));
 				}
 			}
 			
@@ -318,7 +322,9 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 			for(int i = 0; i< points2D.size(); i++) {
 				//System.out.println(points2D.get(i));
 				
-				double sum = points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)+points2D5.get(i);
+				double sum = points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)
+							+points2D5.get(i)+points2D6.get(i)+points2D7.get(i)+points2D8.get(i)
+							+points2D9.get(i)+points2D10.get(i);
 				if(deepWaterBottom <=sum && sum <deepWaterTop) {
 					if(deepWaterLow==0 && deepWaterHigh ==0) {
 						deepWaterLow=sum;
@@ -414,9 +420,9 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 				}
 				
 				
-				if(sum>highest) {
-					highest = points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)+points2D5.get(i);
-				}
+				//if(sum>highest) {
+				//	highest = points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)+points2D5.get(i);
+				//}
 			}
 			/*
 			System.out.print(deepWaterLow); System.out.print(" , "); System.out.println(deepWaterHigh);
@@ -440,7 +446,7 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	public void keyTyped(KeyEvent e) {
 		
 		
-		if(seedContainer.pressed && seedContainer.currentString.length()<10) {
+		if(seedContainer.pressed && seedContainer.currentString.length()<9) {
 				if(Character.isDigit(e.getKeyChar())) {
 					seedContainer.currentString=seedContainer.currentString+=e.getKeyChar();
 				}
@@ -463,6 +469,11 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 					points2D3.clear();
 					points2D4.clear();
 					points2D5.clear();
+					points2D6.clear();
+					points2D7.clear();
+					points2D8.clear();
+					points2D9.clear();
+					points2D10.clear();
 					seedButton.disable=true;
 					seedContainer.disable=true;
 				}
