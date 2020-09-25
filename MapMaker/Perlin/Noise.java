@@ -41,8 +41,10 @@ private static double lerp(double t, double a, double b) {
    return a + t * (b - a);
 }
 
+
 private static double s_curve(double t) {
-   return t * t * (3 - t - t);
+   //return t * t * (3 - t - t);
+   return t * t * t * (t * (t * 6 - 15) + 10);
 }
 
 

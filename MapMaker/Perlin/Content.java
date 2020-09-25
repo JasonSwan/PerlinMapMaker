@@ -185,14 +185,17 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 				for(int y = 0; y<height; y++) {
 					for(int x = 0; x<width*3/4; x++) {
 						double sum = points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)+points2D5.get(i);
+						
+						
+						//WATER COLOR DECIDER
 						if(deepWaterBottom <=sum && sum <deepWaterTop) {
 							
 							double difference = deepWaterHigh-deepWaterLow;
 							double diffToLow = deepWaterHigh-sum;
 							int deduct =  (int) Math.round(diffToLow/difference*100);
-							//System.out.println(deduct);
-							bf.setRGB(x, y, (new Color(0,0,255-2*(deduct)).hashCode()));
 							
+							
+							bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),205-2*(deduct)).hashCode()));
 							i++;
 							continue;
 						}
@@ -206,8 +209,13 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 							i++;
 							continue;
 						}
+						//GREEN COLOR DECIDER
 						else if(greenBottom<=sum && sum<greenTop) {
-							bf.setRGB(x, y, Color.GREEN.getRGB());
+							double difference = greenHigh-greenLow;
+							double diffToLow = greenHigh-sum;
+							int deduct =  (int) Math.round(diffToLow/difference*100);
+							
+							bf.setRGB(x, y, (new Color(0,100+deduct,0).hashCode()));
 							i++;
 							continue;
 						}
@@ -220,6 +228,21 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 							bf.setRGB(x, y, Color.WHITE.getRGB());
 							i++;
 						}
+						
+						
+						
+						/*
+						//BLACK AND WHITE VARIENT
+						double difference = peakHigh-deepWaterLow;
+						double diffToLow = peakHigh-sum;
+						int deduct =  (int) Math.round(diffToLow/difference*100);
+						//System.out.println(difference);
+						//System.out.println(diffToLow);
+						//System.out.println(deduct);
+						bf.setRGB(x, y, (new Color(125-(deduct),125-(deduct),125-(deduct)).hashCode()) );
+						i++;
+						*/
+						
 					}
 				}
 				mapDrawn=true;
@@ -245,11 +268,12 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 			Noise.seedInput(currentSeed);
 			
 			//2D TEST
+			//minus values should be 0.50 but are currently 0.14 for testing
 			for(double y =0; y<height; y+=1.0) {
 				for(double x=0; x<width*3/4; x++) {
 					//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
 					//Noise.seedInput(1000);
-					points2D.add(Noise.noise(freq*x/(width*3/4)-0.5, freq*y/(height)-0.5));
+					points2D.add(Noise.noise(freq*x/(width*3/4)-0.14, freq*y/(height)-0.14));
 					
 				}
 			}
@@ -257,28 +281,28 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 			for(double y =0; y<height; y+=1.0) {
 				for(double x=0; x<width*3/4; x++) {
 					//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-					points2D2.add((1.0/2.0)*Noise.noise(freq*2*x/(width*3/4)-0.5, freq*2*y/(height)-0.5));
+					points2D2.add((1.0/2.0)*Noise.noise(freq*2*x/(width*3/4)-0.14, freq*2*y/(height)-0.14));
 				}
 			}
 
 			for(double y =0; y<height; y+=1.0) {
 				for(double x=0; x<width*3/4; x++) {
 					//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-					points2D3.add((1.0/4.0)*Noise.noise(freq*4*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+					points2D3.add((1.0/4.0)*Noise.noise(freq*4*x/(width*3/4)-0.14, freq*4*y/(height)-0.14));
 				}
 			}
 
 			for(double y =0; y<height; y+=1.0) {
 				for(double x=0; x<width*3/4; x++) {
 					//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-					points2D4.add((1.0/8.0)*Noise.noise(freq*8*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+					points2D4.add((1.0/8.0)*Noise.noise(freq*8*x/(width*3/4)-0.14, freq*8*y/(height)-0.14));
 				}
 			}
 
 			for(double y =0; y<height; y+=1.0) {
 				for(double x=0; x<width*3/4; x++) {
 					//System.out.println(Noise.noise(freq*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
-					points2D5.add((1.0/16.0)*Noise.noise(freq*16*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
+					points2D5.add((1.0/16.0)*Noise.noise(freq*16*x/(width*3/4)-0.14, freq*16*y/(height)-0.14));
 				}
 			}
 			

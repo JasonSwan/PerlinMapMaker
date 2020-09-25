@@ -39,31 +39,6 @@ public class MapMaker extends JFrame {
 	public static void main(String[] args) {
 		new MapMaker();
 		
-		/*
-		Random r = new Random();
-		r.setSeed(0);
-		for(int i = 0; i<5; i++) {
-			System.out.println(r.nextInt(2));
-		}
-		System.out.println("_______________");
-		r.setSeed(5);
-		for(int i = 0; i<5; i++) {
-			System.out.println(r.nextInt(2));
-		}
-		System.out.println("_______________");
-		r.setSeed(0);
-		for(int i = 0; i<5; i++) {
-			System.out.println(r.nextInt(2));
-		}
-		*/
-		
-		for(double i=0.25; i<200; i++) {
-			//System.out.println(Noise.noise(i,i));
-		}
-		//System.out.println(screenWidth);
-		//System.out.println(screenWidth*3/4);
-		//System.out.println((double)1/100);
-		//System.out.println(1/(screenWidth*3/4));
 	}
 	
 }
