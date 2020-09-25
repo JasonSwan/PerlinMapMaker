@@ -194,10 +194,16 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 							double diffToLow = deepWaterHigh-sum;
 							int deduct =  (int) Math.round(diffToLow/difference*100);
 							
+							if(deduct>85) { bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),180-( (int) (1.75*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>70) { bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),180-( (int) (1.50*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>55) { bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),180-( (int) (1.25*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>40) { bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),180-( (int) (1.00*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>25) { bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),180-( (int) (0.75*(deduct)))).hashCode())); i++; continue; }
+							else { bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),180-( (int) (0.50*(deduct)))).hashCode())); i++; continue; }
 							
-							bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),205-2*(deduct)).hashCode()));
-							i++;
-							continue;
+							//bf.setRGB(x, y, (new Color(0,50-(Math.round(deduct/2)),205-2*(deduct)).hashCode()));
+							//i++;
+							//continue;
 						}
 						else if(lightWaterBottom<=sum && sum<lightWaterTop) {
 							bf.setRGB(x, y, Color.CYAN.getRGB());
