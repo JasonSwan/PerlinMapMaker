@@ -31,6 +31,38 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	InputContainer seedContainer;
 	
 	
+	//LOWEST AND HIGHEST VALUES OF EACH COLOR RANGE
+	double deepWaterLow; double deepWaterHigh;
+	
+	double lightWaterLow; double lightWaterHigh;
+	
+	double sandLow; double sandHigh;
+	
+	double greenLow; double greenHigh;
+	
+	double mountLow; double mountHigh;
+	
+	double peakLow; double peakHigh; 
+	
+	
+	//RANGE FOR EACH COLOR
+	//+-2 IS THE CAP IN MOST EVERY CASE
+	
+	double deepWaterBottom=-2; double deepWaterTop = 0.05;
+	
+	double lightWaterBottom = 0.05; double lightWaterTop = 0.06;
+	
+	double sandBottom = 0.06; double sandTop = 0.07;
+	
+	double greenBottom = 0.07; double greenTop = 0.50;
+	
+	double mountBottom = 0.50; double mountTop = 0.65;
+	
+	double peakBottom = 0.65; double peakTop=2; 
+	
+	
+	
+	
 	int ampl;
 	double freq = 5;
 	
@@ -153,32 +185,38 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 				for(int y = 0; y<height; y++) {
 					for(int x = 0; x<width*3/4; x++) {
 						double sum = points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)+points2D5.get(i);
-						if(sum <0.05) {
-							bf.setRGB(x, y, Color.BLUE.getRGB());
+						if(deepWaterBottom <=sum && sum <deepWaterTop) {
+							
+							double difference = deepWaterHigh-deepWaterLow;
+							double diffToLow = deepWaterHigh-sum;
+							int deduct =  (int) Math.round(diffToLow/difference*100);
+							//System.out.println(deduct);
+							bf.setRGB(x, y, (new Color(0,0,255-2*(deduct)).hashCode()));
+							
 							i++;
 							continue;
 						}
-						else if(0.05<=sum && sum<0.06) {
+						else if(lightWaterBottom<=sum && sum<lightWaterTop) {
 							bf.setRGB(x, y, Color.CYAN.getRGB());
 							i++;
 							continue;
 						}
-						else if(0.06<=sum && sum<0.07) {
+						else if(sandBottom<=sum && sum<sandTop) {
 							bf.setRGB(x, y, Color.YELLOW.getRGB());
 							i++;
 							continue;
 						}
-						else if(0.07<=sum && sum<0.50) {
+						else if(greenBottom<=sum && sum<greenTop) {
 							bf.setRGB(x, y, Color.GREEN.getRGB());
 							i++;
 							continue;
 						}
-						else if(0.50<=sum && sum<0.65) {
+						else if(mountBottom<=sum && sum<mountTop) {
 							bf.setRGB(x, y, Color.DARK_GRAY.getRGB());
 							i++;
 							continue;
 						}
-						else {
+						else if (peakBottom<=sum && sum<peakTop){
 							bf.setRGB(x, y, Color.WHITE.getRGB());
 							i++;
 						}
@@ -243,6 +281,123 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 					points2D5.add((1.0/16.0)*Noise.noise(freq*16*x/(width*3/4)-0.5, freq*4*y/(height)-0.5));
 				}
 			}
+			
+			
+			//GET LOW AND HIGH VALUES OF EACH RANGE
+			double highest=0;
+			for(int i = 0; i< points2D.size(); i++) {
+				//System.out.println(points2D.get(i));
+				
+				double sum = points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)+points2D5.get(i);
+				if(deepWaterBottom <=sum && sum <deepWaterTop) {
+					if(deepWaterLow==0 && deepWaterHigh ==0) {
+						deepWaterLow=sum;
+						deepWaterHigh=sum;
+					}
+					else {
+						if(sum<deepWaterLow) {
+							deepWaterLow=sum;
+						}
+						if(sum>deepWaterHigh) {
+							deepWaterHigh=sum;
+						}
+					}
+					continue;
+				}
+				else if(lightWaterBottom<=sum && sum<lightWaterTop) {
+					if(lightWaterLow==0 && lightWaterHigh ==0) {
+						lightWaterLow=sum;
+						lightWaterHigh=sum;
+					}
+					else {
+						if(sum<lightWaterLow) {
+							lightWaterLow=sum;
+						}
+						if(sum>lightWaterHigh) {
+							lightWaterHigh=sum;
+						}
+					}
+					continue;
+				}
+				else if(sandBottom<=sum && sum<sandTop) {
+					if(sandLow==0 && sandHigh ==0) {
+						sandLow=sum;
+						sandHigh=sum;
+					}
+					else {
+						if(sum<sandLow) {
+							sandLow=sum;
+						}
+						if(sum>sandHigh) {
+							sandHigh=sum;
+						}
+					}
+					continue;
+				}
+				else if(greenBottom<=sum && sum<greenTop) {
+					if(greenLow==0 && greenHigh ==0) {
+						greenLow=sum;
+						greenHigh=sum;
+					}
+					else {
+						if(sum<greenLow) {
+							greenLow=sum;
+						}
+						if(sum>greenHigh) {
+							greenHigh=sum;
+						}
+					}
+					continue;
+					
+				}
+				else if(mountBottom<=sum && sum<mountTop) {
+					if(mountLow==0 && mountHigh ==0) {
+						mountLow=sum;
+						mountHigh=sum;
+					}
+					else {
+						if(sum<mountLow) {
+							mountLow=sum;
+						}
+						if(sum>mountHigh) {
+							mountHigh=sum;
+						}
+					}
+					continue;
+					
+				}
+				else if (peakBottom<=sum && sum<peakTop){
+					if(peakLow==0 && peakHigh ==0) {
+						peakLow=sum;
+						peakHigh=sum;
+					}
+					else {
+						if(sum<peakLow) {
+							peakLow=sum;
+						}
+						if(sum>peakHigh) {
+							peakHigh=sum;
+						}
+					}
+					continue;
+					
+				}
+				
+				
+				if(sum>highest) {
+					highest = points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)+points2D5.get(i);
+				}
+			}
+			/*
+			System.out.print(deepWaterLow); System.out.print(" , "); System.out.println(deepWaterHigh);
+			System.out.print(lightWaterLow); System.out.print(" , "); System.out.println(lightWaterHigh);
+			System.out.print(sandLow); System.out.print(" , "); System.out.println(sandHigh);
+			System.out.print(greenLow); System.out.print(" , "); System.out.println(greenHigh);
+			System.out.print(mountLow); System.out.print(" , "); System.out.println(mountHigh);
+			System.out.print(peakLow); System.out.print(" , "); System.out.println(peakHigh);
+			//System.out.println(highest);
+			 */
+			
 			
 			gettingPerlinValues=false;
 			mapDrawn=false;
