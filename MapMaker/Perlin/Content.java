@@ -194,6 +194,7 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 									+points2D5.get(i)+points2D6.get(i)+points2D7.get(i)+points2D8.get(i)
 									+points2D9.get(i)+points2D10.get(i);
 						
+						
 						//WATER COLOR DECIDER
 						if(deepWaterBottom <=sum && sum <deepWaterTop) {
 							
@@ -209,34 +210,20 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 							if(deduct>40) { bf.setRGB(x, y, (new Color(0,80-((int)(deduct/4)),180-( (int) (0.20*(deduct)))).hashCode())); i++; continue; }
 							if(deduct>25) { bf.setRGB(x, y, (new Color(0,90-((int)(deduct/4)),180-( (int) (0.10*(deduct)))).hashCode())); i++; continue; }
 							else { bf.setRGB(x, y, (new Color(0,100-((int)(deduct/4)),180-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
-							
-							/*
-							bf.setRGB(x, y, (new Color(0,100-(Math.round(deduct/2)),200-((int)  (0.85*(deduct)) )).hashCode()));
-							i++;
-							continue;
-							*/
-							
 						}
 						else if(lightWaterBottom<=sum && sum<lightWaterTop) {
-							
-
 							double difference = lightWaterHigh-lightWaterLow;
 							double diffToLow = lightWaterHigh-sum;
 							int deduct =  (int) Math.round(diffToLow/difference*200);
-							if(deduct>150) { bf.setRGB(x, y, (new Color(0,120-((int)(0.05*(deduct))),180-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
-							if(deduct>130) { bf.setRGB(x, y, (new Color(0,135-((int)(0.05*(deduct))),185-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
-							if(deduct>110) { bf.setRGB(x, y, (new Color(0,150-((int)(0.05*(deduct))),190-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
-							if(deduct>85) { bf.setRGB(x, y, (new Color(0,165-((int)(0.05*(deduct))),195-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
-							if(deduct>70) { bf.setRGB(x, y, (new Color(0,180-((int)(0.05*(deduct))),200-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
-							if(deduct>55) { bf.setRGB(x, y, (new Color(0,195-((int)(0.05*(deduct))),205-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
-							if(deduct>40) { bf.setRGB(x, y, (new Color(0,210-((int)(0.05*(deduct))),210-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
-							if(deduct>25) { bf.setRGB(x, y, (new Color(0,225-((int)(0.05*(deduct))),215-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>150) { bf.setRGB(x, y, (new Color(0,110-((int)(0.05*(deduct))),180-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>110) { bf.setRGB(x, y, (new Color(0,115-((int)(0.05*(deduct))),185-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>100) { bf.setRGB(x, y, (new Color(0,130-((int)(0.05*(deduct))),190-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>85) { bf.setRGB(x, y, (new Color(0,145-((int)(0.05*(deduct))),195-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>70) { bf.setRGB(x, y, (new Color(0,160-((int)(0.05*(deduct))),200-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>55) { bf.setRGB(x, y, (new Color(0,185-((int)(0.05*(deduct))),205-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>40) { bf.setRGB(x, y, (new Color(0,200-((int)(0.05*(deduct))),210-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>25) { bf.setRGB(x, y, (new Color(0,215-((int)(0.05*(deduct))),215-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
 							else { bf.setRGB(x, y, (new Color(0,230-((int)(0.05*(deduct))),230-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
-							/*
-							bf.setRGB(x, y, Color.CYAN.getRGB());
-							i++;
-							continue;
-							*/
 						}
 						else if(sandBottom<=sum && sum<sandTop) {
 							bf.setRGB(x, y, Color.YELLOW.getRGB());
@@ -269,13 +256,14 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 						//BLACK AND WHITE VARIENT
 						double difference = peakHigh-deepWaterLow;
 						double diffToLow = peakHigh-sum;
-						int deduct =  (int) Math.round(diffToLow/difference*100);
+						int deduct =  (int) Math.round(diffToLow/difference*255);
 						//System.out.println(difference);
 						//System.out.println(diffToLow);
 						//System.out.println(deduct);
-						bf.setRGB(x, y, (new Color(125-(deduct),125-(deduct),125-(deduct)).hashCode()) );
+						bf.setRGB(x, y, (new Color(255-(deduct),255-(deduct),255-(deduct)).hashCode()) );
 						i++;
 						*/
+						
 						
 					}
 				}
