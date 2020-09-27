@@ -119,35 +119,6 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		startDrawing=false;
 		
 		
-		/*
-		double highest = 0;
-		double highest1 = 0;
-		double highest2 = 0;
-		for(int i = 0; i< points2D.size(); i++) {
-			//System.out.println(points2D.get(i));
-			if(Math.abs(points2D.get(i))>highest) {
-				highest = points2D.get(i);
-			}
-		}
-		
-		for(int i = 0; i< points2D2.size(); i++) {
-			//System.out.println(points2D.get(i));
-			if(Math.abs(points2D.get(i))>highest) {
-				highest1 = points2D.get(i);
-			}
-		}
-		
-		for(int i = 0; i< points2D3.size(); i++) {
-			//System.out.println(points2D.get(i));
-			if(Math.abs(points2D.get(i))>highest) {
-				highest2 = points2D.get(i);
-			}
-		}
-		
-		System.out.println(Math.abs(highest)+Math.abs(highest1)+Math.abs(highest2));
-		
-		System.out.println(points2D.size());
-		*/
 	}
 	
 	@Override
@@ -183,7 +154,6 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		
 		g2d.drawImage(bf, 0, 0, width*3/4, height, this);
 		
-		
 		if(startDrawing) {
 			if(!mapDrawn) {
 	
@@ -193,7 +163,6 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 						double sum =points2D.get(i)+points2D2.get(i)+points2D3.get(i)+points2D4.get(i)
 									+points2D5.get(i)+points2D6.get(i)+points2D7.get(i)+points2D8.get(i)
 									+points2D9.get(i)+points2D10.get(i);
-						
 						
 						//WATER COLOR DECIDER
 						if(deepWaterBottom <=sum && sum <deepWaterTop) {
@@ -215,7 +184,7 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 							double difference = lightWaterHigh-lightWaterLow;
 							double diffToLow = lightWaterHigh-sum;
 							int deduct =  (int) Math.round(diffToLow/difference*200);
-							if(deduct>150) { bf.setRGB(x, y, (new Color(0,110-((int)(0.05*(deduct))),180-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
+							if(deduct>150) { bf.setRGB(x, y, (new Color(0,112-((int)(0.05*(deduct))),185-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
 							if(deduct>110) { bf.setRGB(x, y, (new Color(0,115-((int)(0.05*(deduct))),185-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
 							if(deduct>100) { bf.setRGB(x, y, (new Color(0,130-((int)(0.05*(deduct))),190-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
 							if(deduct>85) { bf.setRGB(x, y, (new Color(0,145-((int)(0.05*(deduct))),195-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
@@ -226,9 +195,14 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 							else { bf.setRGB(x, y, (new Color(0,230-((int)(0.05*(deduct))),230-( (int) (0.05*(deduct)))).hashCode())); i++; continue; }
 						}
 						else if(sandBottom<=sum && sum<sandTop) {
-							bf.setRGB(x, y, Color.YELLOW.getRGB());
-							i++;
-							continue;
+							double difference = sandHigh-sandLow;
+							double diffToLow = sandHigh-sum;
+							int deduct =  (int) Math.round(diffToLow/difference*200);
+							if(deduct>160) { bf.setRGB(x, y, (new Color(200+((int) (0.25*deduct)),175+((int) (0.25*deduct)),90+((int) (0.25*deduct)) ).hashCode())); i++; continue; }
+							if(deduct>120) { bf.setRGB(x, y, (new Color(200+((int) (0.23*deduct)),175+((int) (0.23*deduct)),90+((int) (0.23*deduct)) ).hashCode())); i++; continue; }
+							if(deduct>80) { bf.setRGB(x, y, (new Color(200+((int) (0.20*deduct)),175+((int) (0.20*deduct)),90+((int) (0.20*deduct)) ).hashCode())); i++; continue; }
+							if(deduct>40) { bf.setRGB(x, y, (new Color(200+((int) (0.17*deduct)),175+((int) (0.17*deduct)),90+((int) (0.17*deduct)) ).hashCode())); i++; continue; }
+							else { bf.setRGB(x, y, (new Color(200+((int) (0.14*deduct)),175+((int) (0.14*deduct)),90+((int) (0.14*deduct)) ).hashCode())); i++; continue; }
 						}
 						//GREEN COLOR DECIDER
 						else if(greenBottom<=sum && sum<greenTop) {
