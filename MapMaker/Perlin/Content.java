@@ -30,6 +30,9 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	Button seedButton;
 	InputContainer seedContainer;
 	
+	int currentX; int currentY;
+	int index;
+	
 	
 	//LOWEST AND HIGHEST VALUES OF EACH COLOR RANGE
 	double deepWaterLow; double deepWaterHigh;
@@ -92,6 +95,11 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	
 	public Content(int screenWidth, int screenHeight){
 		
+		currentX=0;
+		currentY=0;
+		index=0;
+		
+		
 		super.setDoubleBuffered(true);
 		addKeyListener(this);
 		addMouseListener(this);
@@ -153,7 +161,6 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		//Color myWhite = new Color(255, 255, 255);
 		
 		g2d.drawImage(bf, 0, 0, width*3/4, height, this);
-		
 		if(startDrawing) {
 			if(!mapDrawn) {
 	
@@ -210,34 +217,72 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 							double difference = greenHigh-greenLow;
 							double diffToLow = greenHigh-sum;
 							int deduct =  (int) Math.round(diffToLow/difference*100);
-							
-							bf.setRGB(x, y, (new Color(0,100+deduct,0).hashCode()));
-							i++;
-							continue;
+							if(deduct>180) { bf.setRGB(x, y, (new Color(100-((int)(deduct/4)),150-( (int) (0.05*(deduct))),0).hashCode())); i++; continue; }
+							if(deduct>160) { bf.setRGB(x, y, (new Color(90-((int)(deduct/4)),150-( (int) (0.10*(deduct))),0).hashCode())); i++; continue; }
+							if(deduct>140) { bf.setRGB(x, y, (new Color(80-((int)(deduct/4)),150-( (int) (0.20*(deduct))),0).hashCode())); i++; continue; }
+							if(deduct>120) { bf.setRGB(x, y, (new Color(70-((int)(deduct/4)),150-( (int) (0.30*(deduct))),0).hashCode())); i++; continue; }
+							if(deduct>100) { bf.setRGB(x, y, (new Color(60-((int)(deduct/4)),150-( (int) (0.40*(deduct))),0).hashCode())); i++; continue; }
+							if(deduct>80) { bf.setRGB(x, y, (new Color(50-((int)(deduct/4)),150-( (int) (0.50*(deduct))),0).hashCode())); i++; continue; }
+							if(deduct>60) { bf.setRGB(x, y, (new Color(50-((int)(deduct/4)),150-( (int) (0.60*(deduct))),0).hashCode())); i++; continue; }
+							if(deduct>40) { bf.setRGB(x, y, (new Color(50-((int)(deduct/4)),150-( (int) (0.70*(deduct))),0).hashCode())); i++; continue; }
+							if(deduct>20) { bf.setRGB(x, y, (new Color(50-((int)(deduct/4)),150-( (int) (0.80*(deduct))),0).hashCode())); i++; continue; }
+							else { bf.setRGB(x, y, (new Color(50-((int)(deduct/4)),150-( (int) (0.90*(deduct))),0).hashCode())); i++; continue; }
+							//bf.setRGB(x, y, (new Color(0,100+deduct,0).hashCode()));
+							//i++;
+							//continue;
 						}
 						else if(mountBottom<=sum && sum<mountTop) {
-							bf.setRGB(x, y, Color.DARK_GRAY.getRGB());
-							i++;
-							continue;
+							double difference = mountHigh-mountLow;
+							double diffToLow = mountHigh-sum;
+							int deduct =  (int) Math.round(diffToLow/difference*100);
+							if(deduct>180) { bf.setRGB(x, y, (new Color(90-((int) (0.5*deduct) ),100-((int) (0.5*deduct) ),110-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>160) { bf.setRGB(x, y, (new Color(95-((int) (0.5*deduct) ),105-((int) (0.5*deduct) ),115-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>140) { bf.setRGB(x, y, (new Color(100-((int) (0.5*deduct) ),110-((int) (0.5*deduct) ),120-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>120) { bf.setRGB(x, y, (new Color(105-((int) (0.5*deduct) ),115-((int) (0.5*deduct) ),125-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>100) { bf.setRGB(x, y, (new Color(110-((int) (0.5*deduct) ),120-((int) (0.5*deduct) ),130-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>80) { bf.setRGB(x, y, (new Color(113-((int) (0.5*deduct) ),123-((int) (0.5*deduct) ),133-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>60) { bf.setRGB(x, y, (new Color(116-((int) (0.5*deduct) ),126-((int) (0.5*deduct) ),136-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>40) { bf.setRGB(x, y, (new Color(119-((int) (0.5*deduct) ),129-((int) (0.5*deduct) ),139-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>20) { bf.setRGB(x, y, (new Color(122-((int) (0.5*deduct) ),132-((int) (0.5*deduct) ),142-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							else { bf.setRGB(x, y, (new Color(125-((int) (0.5*deduct) ),135-((int) (0.5*deduct) ),145-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							
+							
+							//bf.setRGB(x, y, Color.DARK_GRAY.getRGB());
+							//i++;
+							//continue;
 						}
 						else if (peakBottom<=sum && sum<peakTop){
-							bf.setRGB(x, y, Color.WHITE.getRGB());
-							i++;
+							double difference = peakHigh-peakLow;
+							double diffToLow = peakHigh-sum;
+							int deduct =  (int) Math.round(diffToLow/difference*100);
+							if(deduct>180) { bf.setRGB(x, y, (new Color(135-((int) (0.5*deduct) ),140-((int) (0.5*deduct) ),145-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>160) { bf.setRGB(x, y, (new Color(140-((int) (0.5*deduct) ),145-((int) (0.5*deduct) ),150-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>140) { bf.setRGB(x, y, (new Color(145-((int) (0.5*deduct) ),150-((int) (0.5*deduct) ),155-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>120) { bf.setRGB(x, y, (new Color(150-((int) (0.5*deduct) ),155-((int) (0.5*deduct) ),160-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>100) { bf.setRGB(x, y, (new Color(160-((int) (0.5*deduct) ),165-((int) (0.5*deduct) ),170-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>80) { bf.setRGB(x, y, (new Color(170-((int) (0.5*deduct) ),175-((int) (0.5*deduct) ),180-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>60) { bf.setRGB(x, y, (new Color(180-((int) (0.5*deduct) ),185-((int) (0.5*deduct) ),190-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>40) { bf.setRGB(x, y, (new Color(205-((int) (0.5*deduct) ),210-((int) (0.5*deduct) ),215-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>20) { bf.setRGB(x, y, (new Color(220-((int) (0.5*deduct) ),225-((int) (0.5*deduct) ),230-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							else { bf.setRGB(x, y, (new Color(250-((int) (0.5*deduct) ),250-((int) (0.5*deduct) ),250-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							
+							//bf.setRGB(x, y, Color.WHITE.getRGB());
+							//i++;
 						}
 						
 						
 						
-						/*
+						
 						//BLACK AND WHITE VARIENT
-						double difference = peakHigh-deepWaterLow;
-						double diffToLow = peakHigh-sum;
-						int deduct =  (int) Math.round(diffToLow/difference*255);
+						//double difference = peakHigh-deepWaterLow;
+						//double diffToLow = peakHigh-sum;
+						//int deduct =  (int) Math.round(diffToLow/difference*255);
 						//System.out.println(difference);
 						//System.out.println(diffToLow);
 						//System.out.println(deduct);
-						bf.setRGB(x, y, (new Color(255-(deduct),255-(deduct),255-(deduct)).hashCode()) );
-						i++;
-						*/
+						//bf.setRGB(x, y, (new Color(255-(deduct),255-(deduct),255-(deduct)).hashCode()) );
+						//i++;
+						
 						
 						
 					}
@@ -250,8 +295,22 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 			}
 		}
 		
+		/*
+		g2d.setColor(Color.RED);
+		g2d.drawLine(currentX, currentY, currentX+10, currentY+10);
 		
-		
+		currentX++;
+		index++;
+		if(currentX==width*3/4) {
+			currentX=0;
+			currentY++;
+		}
+		if(currentY==height) {
+			currentY=0;
+			index=0;
+		}
+		//System.out.print(currentX); System.out.print(", "); System.out.print(currentY); System.out.print(", "); System.out.println(index);
+		*/
 		repaint();
 		
 	}
