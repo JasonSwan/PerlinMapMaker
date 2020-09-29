@@ -57,9 +57,9 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	
 	double sandBottom = 0.10; double sandTop = 0.11;
 	
-	double greenBottom = 0.11; double greenTop = 0.20;
+	double greenBottom = 0.11; double greenTop = 0.50;
 	//actually 0.50
-	double mountBottom = 0.20; double mountTop = 0.65;
+	double mountBottom = 0.50; double mountTop = 0.65;
 	
 	double peakBottom = 0.65; double peakTop=2; 
 	
@@ -67,7 +67,7 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 	
 	
 	int ampl;
-	double freq = 1;
+	double freq = 5;
 	
 	int currentSeed = 100;
 
@@ -235,11 +235,11 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 							double difference = mountHigh-mountLow;
 							double diffToLow = mountHigh-sum;
 							int deduct =  (int) Math.round(diffToLow/difference*200);
-							if(deduct>190) { bf.setRGB(x, y, (new Color(50+((int) 0.03*deduct),150-( (int) 0.11*deduct ),0+((int) 0.15*deduct)).hashCode())); i++; continue; }
-							if(deduct>185) { bf.setRGB(x, y, (new Color(56+((int) 0.01*deduct),128-((int) 0.04*deduct),30+((int) 0.04*deduct)).hashCode())); i++; continue; }
-							if(deduct>180) { bf.setRGB(x, y, (new Color(58+((int) 0.01*deduct),121-((int) 0.05*deduct),38+((int) 0.06*deduct)).hashCode())); i++; continue; }
-							if(deduct>175) { bf.setRGB(x, y, (new Color(61+((int) 0.01*deduct),111-((int) 0.05*deduct),50+((int) 0.06*deduct)).hashCode())); i++; continue; }
-							if(deduct>165) { bf.setRGB(x, y, (new Color(64+((int) (0.05*deduct) ),100+((int) (0.01*deduct) ),63+((int) (0.05*deduct) )).hashCode())); i++; continue; }
+							if(deduct>190) { bf.setRGB(x, y, (new Color(50+((int) 0.01*deduct),150-( (int) 0.01*deduct ),0+((int) 0.01*deduct)).hashCode())); i++; continue; }
+							if(deduct>180) { bf.setRGB(x, y, (new Color(52+((int) 0.03*deduct),148-( (int) 0.11*deduct ),2+((int) 0.15*deduct)).hashCode())); i++; continue; }
+							if(deduct>175) { bf.setRGB(x, y, (new Color(56+((int) 0.01*deduct),128-((int) 0.04*deduct),30+((int) 0.04*deduct)).hashCode())); i++; continue; }
+							if(deduct>170) { bf.setRGB(x, y, (new Color(58+((int) 0.01*deduct),121-((int) 0.05*deduct),38+((int) 0.06*deduct)).hashCode())); i++; continue; }
+							if(deduct>165) { bf.setRGB(x, y, (new Color(61+((int) 0.01*deduct),111-((int) 0.05*deduct),50+((int) 0.06*deduct)).hashCode())); i++; continue; }
 							if(deduct>155) { bf.setRGB(x, y, (new Color(69+((int) (0.03*deduct) ),102+((int) (0.01*deduct) ),72+((int) (0.04*deduct) )).hashCode())); i++; continue; }
 							if(deduct>135) { bf.setRGB(x, y, (new Color(74+((int) (0.03*deduct) ),90+((int) (0.02*deduct) ),90+((int) (0.05*deduct) )).hashCode())); i++; continue; }
 							if(deduct>80) { bf.setRGB(x, y, (new Color(113-((int) (0.25*deduct) ),123-((int) (0.25*deduct) ),133-((int) (0.25*deduct) )).hashCode())); i++; continue; }
@@ -257,11 +257,11 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 							double difference = peakHigh-peakLow;
 							double diffToLow = peakHigh-sum;
 							int deduct =  (int) Math.round(diffToLow/difference*100);
-							if(deduct>180) { bf.setRGB(x, y, (new Color(135-((int) (0.5*deduct) ),140-((int) (0.5*deduct) ),145-((int) (0.5*deduct) )).hashCode())); i++; continue; }
-							if(deduct>160) { bf.setRGB(x, y, (new Color(140-((int) (0.5*deduct) ),145-((int) (0.5*deduct) ),150-((int) (0.5*deduct) )).hashCode())); i++; continue; }
-							if(deduct>140) { bf.setRGB(x, y, (new Color(145-((int) (0.5*deduct) ),150-((int) (0.5*deduct) ),155-((int) (0.5*deduct) )).hashCode())); i++; continue; }
-							if(deduct>120) { bf.setRGB(x, y, (new Color(150-((int) (0.5*deduct) ),155-((int) (0.5*deduct) ),160-((int) (0.5*deduct) )).hashCode())); i++; continue; }
-							if(deduct>100) { bf.setRGB(x, y, (new Color(160-((int) (0.5*deduct) ),165-((int) (0.5*deduct) ),170-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							//if(deduct>180) { bf.setRGB(x, y, (new Color(135-((int) (0.5*deduct) ),140-((int) (0.5*deduct) ),145-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							//if(deduct>160) { bf.setRGB(x, y, (new Color(140-((int) (0.5*deduct) ),145-((int) (0.5*deduct) ),150-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							//if(deduct>140) { bf.setRGB(x, y, (new Color(145-((int) (0.5*deduct) ),150-((int) (0.5*deduct) ),155-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							//if(deduct>120) { bf.setRGB(x, y, (new Color(150-((int) (0.5*deduct) ),155-((int) (0.5*deduct) ),160-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							//if(deduct>100) { bf.setRGB(x, y, (new Color(160-((int) (0.5*deduct) ),165-((int) (0.5*deduct) ),170-((int) (0.5*deduct) )).hashCode())); i++; continue; }
 							if(deduct>80) { bf.setRGB(x, y, (new Color(170-((int) (0.5*deduct) ),175-((int) (0.5*deduct) ),180-((int) (0.5*deduct) )).hashCode())); i++; continue; }
 							if(deduct>60) { bf.setRGB(x, y, (new Color(180-((int) (0.5*deduct) ),185-((int) (0.5*deduct) ),190-((int) (0.5*deduct) )).hashCode())); i++; continue; }
 							if(deduct>40) { bf.setRGB(x, y, (new Color(205-((int) (0.5*deduct) ),210-((int) (0.5*deduct) ),215-((int) (0.5*deduct) )).hashCode())); i++; continue; }
@@ -345,6 +345,18 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 				}
 			}
 			
+			//RESET LOW AND HIGH VALUES
+			deepWaterLow=0; deepWaterHigh=0;
+			
+			lightWaterLow=0; lightWaterHigh=0;
+			
+			sandLow=0; sandHigh=0;
+			
+			greenLow=0; greenHigh=0;
+			
+			mountLow=0; mountHigh=0;
+			
+			peakLow=0; peakHigh=0; 
 			
 			//GET LOW AND HIGH VALUES OF EACH RANGE
 			double highest=0;
