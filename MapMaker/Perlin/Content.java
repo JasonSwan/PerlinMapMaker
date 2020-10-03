@@ -262,11 +262,11 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 							//if(deduct>140) { bf.setRGB(x, y, (new Color(145-((int) (0.5*deduct) ),150-((int) (0.5*deduct) ),155-((int) (0.5*deduct) )).hashCode())); i++; continue; }
 							//if(deduct>120) { bf.setRGB(x, y, (new Color(150-((int) (0.5*deduct) ),155-((int) (0.5*deduct) ),160-((int) (0.5*deduct) )).hashCode())); i++; continue; }
 							//if(deduct>100) { bf.setRGB(x, y, (new Color(160-((int) (0.5*deduct) ),165-((int) (0.5*deduct) ),170-((int) (0.5*deduct) )).hashCode())); i++; continue; }
-							if(deduct>80) { bf.setRGB(x, y, (new Color(170-((int) (0.5*deduct) ),175-((int) (0.5*deduct) ),180-((int) (0.5*deduct) )).hashCode())); i++; continue; }
-							if(deduct>60) { bf.setRGB(x, y, (new Color(180-((int) (0.5*deduct) ),185-((int) (0.5*deduct) ),190-((int) (0.5*deduct) )).hashCode())); i++; continue; }
-							if(deduct>40) { bf.setRGB(x, y, (new Color(205-((int) (0.5*deduct) ),210-((int) (0.5*deduct) ),215-((int) (0.5*deduct) )).hashCode())); i++; continue; }
-							if(deduct>20) { bf.setRGB(x, y, (new Color(220-((int) (0.5*deduct) ),225-((int) (0.5*deduct) ),230-((int) (0.5*deduct) )).hashCode())); i++; continue; }
-							else { bf.setRGB(x, y, (new Color(250-((int) (0.5*deduct) ),250-((int) (0.5*deduct) ),250-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>80) { bf.setRGB(x, y, (new Color(190-((int) (0.5*deduct) ),195-((int) (0.5*deduct) ),200-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>60) { bf.setRGB(x, y, (new Color(200-((int) (0.5*deduct) ),205-((int) (0.5*deduct) ),210-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>40) { bf.setRGB(x, y, (new Color(215-((int) (0.5*deduct) ),220-((int) (0.5*deduct) ),225-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							if(deduct>20) { bf.setRGB(x, y, (new Color(235-((int) (0.5*deduct) ),240-((int) (0.5*deduct) ),245-((int) (0.5*deduct) )).hashCode())); i++; continue; }
+							else { bf.setRGB(x, y, (new Color(255-((int) (0.5*deduct) ),255-((int) (0.5*deduct) ),255-((int) (0.5*deduct) )).hashCode())); i++; continue; }
 							
 							//bf.setRGB(x, y, Color.WHITE.getRGB());
 							//i++;
