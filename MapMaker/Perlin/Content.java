@@ -118,7 +118,7 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		//button in top right of screen that will always exit the application
 		exitButton = new Button(screenWidth-40, 0, 40, 20).setColor(255,0,0);
 		//button that randomizes the seed and then loads the new map
-		seedButton = new Button(screenWidth-(screenWidth/8)-20, 100, 40, 20).setColor(255,0,0);
+		seedButton = new Button(screenWidth-(screenWidth/8)-135, 130, 100, 11).setColor(255,0,0);
 		//inputContainer that allows user to input new seed and then loads the new map
 		seedContainer = new InputContainer(screenWidth-(screenWidth/8)-145, 100,120,20);
 		
@@ -143,11 +143,13 @@ public class Content extends JPanel implements KeyListener, ActionListener, Mous
 		//APPLY BUTTON AND VISUAL CURRENT SEED
 		seedButton.draw(g2d);
 		g2d.setColor(Color.WHITE);
-		g2d.drawString("Current Seed:" + String.valueOf(currentSeed), seedButton.xCor+seedButton.width+5, Math.round(seedButton.yCor+(seedButton.height-5)));
+		g2d.drawString("Random Seed", seedButton.xCor+(seedButton.width/10), Math.round(seedButton.yCor+(seedButton.height-1)));
 		
 		//SEED CONTAINER
 		seedContainer.draw(g2d);
-		
+		g2d.setColor(Color.WHITE);
+		g2d.drawString("Input Seed: ", seedContainer.xCor-seedContainer.width/2-5, Math.round(seedContainer.yCor+(seedContainer.height-5)));
+		g2d.drawString("Current Seed:" + String.valueOf(currentSeed), seedContainer.xCor+seedContainer.width+5, Math.round(seedContainer.yCor+(seedContainer.height-5)));
 		
 		//EXIT BUTTON AND DECORATIVE 'X'
 		exitButton.draw(g2d);
